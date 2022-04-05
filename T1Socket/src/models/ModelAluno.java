@@ -12,7 +12,6 @@ package models;
 public class ModelAluno extends ModelPessoa{
     
     private int idAluno;
-    private int idAluno2;
     private String matricvula;
     
     public void ModelAuno(String nomeEntrada, String cpfCnpjEntrada) {
