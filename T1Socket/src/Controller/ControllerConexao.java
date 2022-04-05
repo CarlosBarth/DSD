@@ -27,26 +27,12 @@ import org.json.simple.parser.ParseException;
  *
  * @author 07166848960
  */
-<<<<<<< HEAD
-public class ControllerConexao {
-    public static void main(String[] args) throws IOException {
-        System.out.println("Criando Conexão...");
-        
-        try (Socket conn =  new Socket(Inet4Address.getLocalHost(),80)) {
-            conn.setReuseAddress(true);
-            System.out.println("Conectado!");
-            InputStream in = conn.getInputStream();
-            
-            byte [] dados = new byte[1024];
-            int qtde = in.read(dados);
-                // Deverá vir um Json
-=======
 public class ControllerConexao extends InterfaceSocketConnection {
 
     public static void main(String[] args) {
         JSONObject jsonObject = new JSONObject();
 
-//        FileWriter writeFile = null;
+        FileWriter writeFile = null;
 
         //Armazena dados em um Objeto JSON
         jsonObject.put("nome", "Allan");
@@ -83,7 +69,6 @@ public class ControllerConexao extends InterfaceSocketConnection {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject)jsonParser.parse(new InputStreamReader(inputStreamObject, "UTF-8"));
             System.out.println(jsonObject);
->>>>>>> 4fec20b7d4767b735f0ef5fe86730bba3223ab9a
             
             var json = jsonObject.toString().getBytes("UTF-8");
 
@@ -92,5 +77,4 @@ public class ControllerConexao extends InterfaceSocketConnection {
             }
         }
     }
-        
 }
