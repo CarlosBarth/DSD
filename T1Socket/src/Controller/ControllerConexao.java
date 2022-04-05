@@ -32,7 +32,7 @@ public class ControllerConexao extends InterfaceSocketConnection {
     public static void main(String[] args) {
         JSONObject jsonObject = new JSONObject();
 
-        FileWriter writeFile = null;
+//        FileWriter writeFile = null;
 
         //Armazena dados em um Objeto JSON
         jsonObject.put("nome", "Allan");
