@@ -5,16 +5,29 @@
  */
 package Controller;
 
+import Interfaces.InterfaceSocketConnection;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import org.json.simple.JSONObject;
+
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.util.Map.Entry;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 /**
  *
  * @author 07166848960
  */
+<<<<<<< HEAD
 public class ControllerConexao {
     public static void main(String[] args) throws IOException {
         System.out.println("Criando Conexão...");
@@ -27,17 +40,56 @@ public class ControllerConexao {
             byte [] dados = new byte[1024];
             int qtde = in.read(dados);
                 // Deverá vir um Json
+=======
+public class ControllerConexao extends InterfaceSocketConnection {
+
+    public static void main(String[] args) {
+        JSONObject jsonObject = new JSONObject();
+
+        FileWriter writeFile = null;
+
+        //Armazena dados em um Objeto JSON
+        jsonObject.put("nome", "Allan");
+        jsonObject.put("sobrenome", "Romanato");
+        jsonObject.put("pais", "Brasil");
+        jsonObject.put("estado", "SP");
+
+//		try{
+//			writeFile = new FileWriter("saida.json");
+//			//Escreve no arquivo conteudo do Objeto JSON
+//			writeFile.write(jsonObject.toJSONString());
+//			writeFile.close();
+//		}
+//		catch(IOException e){
+//			e.printStackTrace();
+//		}
+        //Imprimne na Tela o Objeto JSON para vizualização
+        System.out.println(jsonObject.get("nome"));
+    }
+
+    public void teste() throws IOException, ParseException {
+        ServerSocket server = new ServerSocket(80);
+        server.setReuseAddress(true);
+
+        System.out.println("Aguardando conexao...");
+        try (Socket conn = server.accept();) /* try-with  */ {
+
+            System.out.println("Conectado com: "
+                    + conn.getInetAddress().getHostAddress());
+
+            OutputStream out = conn.getOutputStream();
+            InputStream inputStreamObject =  conn.getInputStream();
+
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject)jsonParser.parse(new InputStreamReader(inputStreamObject, "UTF-8"));
+            System.out.println(jsonObject);
+>>>>>>> 4fec20b7d4767b735f0ef5fe86730bba3223ab9a
             
-            while (qtde >= 0) {
-                // Deverá vir um Json
-                String dadosStr = new String(dados, 0, qtde);
-                System.out.println(dadosStr);
-                qtde = in.read(dados);
+            var json = jsonObject.toString().getBytes("UTF-8");
+
+            for (byte b : json) {
+                out.write(b);
             }
-            // Após montar um Json criar um Modelo e realizar o Bean
-        } catch (UnknownHostException e ) {
-            System.out.println("Host não Encontrado");
-            e.printStackTrace();
         }
     }
         
