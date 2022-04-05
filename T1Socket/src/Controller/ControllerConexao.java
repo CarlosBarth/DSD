@@ -16,8 +16,7 @@ import java.net.UnknownHostException;
  * @author 07166848960
  */
 public class ControllerConexao {
-    
-    public static void startConection() throws IOException {
+    public static void main(String[] args) throws IOException {
         System.out.println("Criando Conexão...");
         
         try (Socket conn =  new Socket(Inet4Address.getLocalHost(),80)) {
@@ -41,4 +40,5 @@ public class ControllerConexao {
             e.printStackTrace();
         }
     }
+        
 }
