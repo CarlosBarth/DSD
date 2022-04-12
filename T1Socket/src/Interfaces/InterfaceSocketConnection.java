@@ -6,7 +6,6 @@
 package Interfaces;
 
 import java.io.IOException;
-import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -14,5 +13,5 @@ import org.json.simple.parser.ParseException;
  */
 public abstract class InterfaceSocketConnection {
     
-    public static void createConnection()  throws IOException,ParseException {};
+    public static void createConnection()  throws IOException {};
 }
