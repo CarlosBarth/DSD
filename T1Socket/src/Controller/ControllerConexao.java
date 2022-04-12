@@ -13,7 +13,6 @@ import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-//import org.json.simple.JSONObject;
 
 import java.io.FileWriter;
 import java.io.InputStreamReader;
@@ -22,21 +21,22 @@ import java.net.ServerSocket;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map.Entry;
+import models.ModelAluno;
 import models.ModelPessoa;
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
+import models.ModelProfessor;
+import models.ModelTurma;
 
 /**
  *
  * @author 07166848960
  */
 public class ControllerConexao extends InterfaceSocketConnection {
-    final String classePessoa      = "1";
-    final String classeTurma       = "2";
-    final String tipoProfessor     = "1";
-    final String tipoAluno         = "2";
+    final static String classePessoa      = "1";
+    final static String classeTurma       = "2";
+    final static String tipoAluno         = "1";
+    final static String tipoProfessor     = "2";
     
-    private List <ModelPessoa> Pessoas;
+    private static List <ModelTurma> turmas;
     
     public static void main(String[] args) throws IOException, ParseException {
         ServerSocket server = new ServerSocket(80);
@@ -63,31 +63,54 @@ public class ControllerConexao extends InterfaceSocketConnection {
                 qtde = inputStreamObject.read(dados);
                 bobTheBuilder.append(dados);
             }
-            
-//            for (byte b : dadosStr) {
-//                out.write(b);
-//            }
+            String op = bobTheBuilder.toString().split(";")[0];
+            String classe = bobTheBuilder.toString().split(";")[0];
+            switch (op) {
+                case "INSERT":
+                    iserePessoa(bobTheBuilder.toString());
+                    break;
+                case "UPDATE":
+                    iserePessoa(bobTheBuilder.toString());
+                    break;
+            }
         }
     }
     
-    public void iserePessoa(String Dados) {
-        String[] aDados = Dados.split(";");
-        String op       = aDados[0];
-        String classe   = aDados[1];
-        String cpf      = aDados[2];
-        String nome     = aDados[3];
-        String endereco = aDados[4];
-        String tipoPes  = aDados[5];
-        String matricula= "";
-        String graduacao= "";
+    public static void iserePessoa(String Dados) {
+        String[] aDados     = Dados.split(";");
+        String op           = aDados[0];
+        String classe       = aDados[1];
+        String cpf          = aDados[2];
+        String nome         = aDados[3];
+        String endereco     = aDados[4];
+        String tipoPes      = aDados[5];
+        String matricula    = "";
+        String graduacao    = "";
+        String nomeTruma    = aDados[7]; 
         
-        if (aDados[5] == this.tipoAluno) {
+        if (tipoPes == tipoAluno) {
             matricula = aDados[6];
+            ModelAluno aluno = new ModelAluno(nome, cpf);
+            aluno.setEndereco(endereco);
+            aluno.setMatricula(nome);
+            ModelTurma turma = getTurmaByName(nomeTruma);
+            turma.addAluno(aluno);
         } else {
             graduacao = aDados[6];
+            ModelProfessor professor = new ModelProfessor(nome, cpf);
+            professor.setNivelGraduacao(graduacao);
+            ModelTurma turma = getTurmaByName(nomeTruma);
+            turma.setProfessor(professor);
         }
-//        String classe = "ModelPessoa";
-        ModelPessoa pessoa = new ModelPessoa();
-        Dados.substring(0);
+    }
+    
+    public static ModelTurma getTurmaByName(String nome) {
+        for (ModelTurma Turma : turmas) {
+            if (Turma.getDescricao() == nome) {
+                return Turma;
+            }
+            return new ModelTurma(nome);
+        }
+        return null;
     }
 }

@@ -16,7 +16,7 @@ public class ModelPessoa {
     private String endereco;
     private String cpfCnpj;
     
-    public void ModelPessoa(String nomeEntrada, String cpfCnpjEntrada) {
+    public ModelPessoa(String nomeEntrada, String cpfCnpjEntrada) {
         nome        = nomeEntrada;
         cpfCnpj     = cpfCnpjEntrada;
     }
@@ -52,4 +52,5 @@ public class ModelPessoa {
     public void setCpfCnpj(String cpfCnpj) {
         this.cpfCnpj = cpfCnpj;
     }
+
 }

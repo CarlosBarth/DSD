@@ -15,7 +15,7 @@ public class ModelProfessor extends ModelPessoa {
     private String nivelGraduacao;
     
     public ModelProfessor(String nomeEntrada, String cpfCnpjEntrada) {
-        super.ModelPessoa(nomeEntrada,cpfCnpjEntrada);
+        super(nomeEntrada,cpfCnpjEntrada);
     }
 
     public int getIdProfessor() {
