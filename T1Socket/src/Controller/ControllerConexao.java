@@ -76,7 +76,11 @@ public class ControllerConexao extends InterfaceSocketConnection {
         }
     }
     
-    public static void iserePessoa(String Dados) {
+    /**
+     * Insere uma pessoa
+     * @param Dados 
+     */
+    public static boolean iserePessoa(String Dados) {
         String[] aDados     = Dados.split(";");
         String op           = aDados[0];
         String classe       = aDados[1];
@@ -100,10 +104,20 @@ public class ControllerConexao extends InterfaceSocketConnection {
             ModelProfessor professor = new ModelProfessor(nome, cpf);
             professor.setNivelGraduacao(graduacao);
             ModelTurma turma = getTurmaByName(nomeTruma);
-            turma.setProfessor(professor);
+            if (turma != null) {
+                turma.setProfessor(professor);
+                return true;
+            }
+            return false;
         }
+        return false;
     }
     
+    /**
+     * Retorna a turma correspondente ao nome ou insere uma nova
+     * @param nome
+     * @return 
+     */
     public static ModelTurma getTurmaByName(String nome) {
         for (ModelTurma Turma : turmas) {
             if (Turma.getDescricao() == nome) {
