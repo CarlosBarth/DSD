@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
-
-import java.io.IOException;
+package Controller;
 
 /**
  *
- * @author Barth
+ * @author 07166848960
  */
-public abstract class InterfaceSocketConnection {
+public class Aluno {
     
-    public static void createConnection()  throws IOException {};
 }

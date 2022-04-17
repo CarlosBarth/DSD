@@ -12,10 +12,10 @@ package models;
 public class ModelAluno extends ModelPessoa{
     
     private int idAluno;
-    private String matricvula;
-    
-    public void ModelAuno(String nomeEntrada, String cpfCnpjEntrada) {
-        super.ModelPessoa(nomeEntrada, cpfCnpjEntrada);
+    private String matricula;
+
+    public ModelAluno(String nome, String cpf) {
+        super(nome, cpf);
     }
 
     public int getIdAluno() {
@@ -26,12 +26,12 @@ public class ModelAluno extends ModelPessoa{
         this.idAluno = idAluno;
     }
 
-    public String getMatricvula() {
-        return matricvula;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setMatricvula(String matricvula) {
-        this.matricvula = matricvula;
+    public void setMatricula(String matricvula) {
+        this.matricula = matricvula;
     }
     
 }

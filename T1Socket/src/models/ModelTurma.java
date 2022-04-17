@@ -57,4 +57,12 @@ public class ModelTurma {
     public void setAno(int ano) {
         this.ano = ano;
     }
+    
+    public void addAluno(ModelAluno aluno) {
+        alunos.add(aluno);
+    }
+    
+    public void setProfessor(ModelProfessor professor) {
+        Professor = professor;
+    }
 }
