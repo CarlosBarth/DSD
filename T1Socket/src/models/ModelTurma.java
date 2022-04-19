@@ -18,8 +18,8 @@ public class ModelTurma {
     private String descricao;
     private int qtdAlunos;
     private int ano;
-    private List<ModelAluno> alunos;
-    private ModelProfessor Professor;
+    private static List<ModelAluno> alunos;
+    private static ModelProfessor Professor;
 
     public ModelTurma(String descricaoEntrada) {
         descricao = descricaoEntrada;
@@ -64,5 +64,41 @@ public class ModelTurma {
     
     public void setProfessor(ModelProfessor professor) {
         Professor = professor;
+    }
+    
+    public static ModelPessoa getProfessor() {
+        return Professor;
+    }
+    
+    public static List<ModelAluno> getAlunos() {
+        return alunos;
+    }
+    
+    public static ModelPessoa getPessoaByCpfCnpj(String cpfCnpj) {
+        if (getProfessor() != null && Professor.getCpfCnpj() == cpfCnpj) {
+            return getProfessor();
+        } else {
+            for (ModelAluno aluno : getAlunos()) {
+                if (aluno.getCpfCnpj() == cpfCnpj) {
+                    return aluno;
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean deletePessoa(String cpfCnpj) {
+        if (getProfessor() != null && Professor.getCpfCnpj() == cpfCnpj) {
+            Professor = null;
+            return true;
+        } else {
+            for (ModelAluno aluno : getAlunos()) {
+                if (aluno.getCpfCnpj() == cpfCnpj) {
+                    alunos.remove(aluno);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
