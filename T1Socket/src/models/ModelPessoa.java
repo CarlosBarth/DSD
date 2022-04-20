@@ -53,4 +53,11 @@ public class ModelPessoa {
         this.cpfCnpj = cpfCnpj;
     }
 
+    @Override
+    public String toString() {
+        return "Nome: " + getNome() + "\n"
+                + "Cpf/Cnpj: " + getCpfCnpj() + "\n"
+                + "Endereço: " + getEndereco()+ "\n";
+    }
+    
 }

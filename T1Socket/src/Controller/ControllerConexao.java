@@ -7,6 +7,7 @@ package Controller;
 
 import Interfaces.InterfaceSocketConnection;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Inet4Address;
@@ -17,7 +18,9 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
+import java.net.SocketException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import models.ModelAluno;
@@ -38,52 +41,91 @@ public class ControllerConexao extends InterfaceSocketConnection {
 
     private static List<ModelTurma> turmas;
 
-    static List<ModelTurma> getTurma() {
+    static List<ModelTurma> getTurmas() {
+        if (turmas == null) {
+            turmas = new ArrayList<ModelTurma>();
+        }
         return turmas;
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
-        ServerSocket server = new ServerSocket(80);
-        server.setReuseAddress(true);
+    public static void main(String[] args) throws IOException, ParseException, InterruptedException {
+        ServerSocket server = new ServerSocket(90);
+        while (true) {
+            server.setReuseAddress(true);
 
-        System.out.println("Aguardando conexao...");
+            System.out.println("Aguardando conexao...");
 
-        try (Socket conn = server.accept();) /* try-with  */ {
-            conn.setKeepAlive(true);
-            conn.setSoTimeout(99999);
-            StringBuilder bobTheBuilder = new StringBuilder();
-            System.out.println("Conectado com: "
-                    + conn.getInetAddress().getHostAddress());
-            OutputStream out = conn.getOutputStream();
-            InputStream inputStreamObject = conn.getInputStream();
+            try (Socket conn = server.accept();) /* try-with  */ {
+                String dadosStr = new String("");
+                conn.setKeepAlive(true);
+                conn.setSoTimeout(9999999);
+                System.out.println("Conectado com: "
+                        + conn.getInetAddress().getHostAddress());
+                OutputStream out = conn.getOutputStream();
+//            InputStream in = conn.getInputStream();
+                DataInputStream input = new DataInputStream(conn.getInputStream());
 
-            byte[] dados = new byte[1024];
-            int qtde = inputStreamObject.read(dados);
+                byte[] dados = new byte[1024];
+//            int qtde = in.read(dados);
 
-            while (qtde >= 0) {
-                // Deverá vir um Json
-                String dadosStr = new String(dados, 6, qtde);
-                System.out.println(dadosStr);
-                qtde = inputStreamObject.read(dados);
-                bobTheBuilder.append(dados);
+                if (input.available() > 0) {
+                    String str = input.readUTF();
+//                dadosStr = new String(dados, 0, qtde);
+                    System.out.println(dadosStr);
+//                qtde = in.read(dados);
+                    dadosStr = str;
+                }
+                //            StringBuilder bobTheBuilder = new StringBuilder();
+                //            String op = "INSERT";
+                //            bobTheBuilder.append("INSERT;1;07166848960;CARLOS;RUA TESTE;1;11234212;DSD");
+                String op = dadosStr.split(";")[0];
+                switch (op) {
+                    case "INSERT":
+                        ModelPessoa pessoa = iserePessoa(dadosStr);
+                        String[] strPes = {"Pessoa Inserida Com Sucesso!"};
+                        System.out.println(pessoa.toString());
+                        for (int i = 0; i < strPes.length; i++) {
+                            Thread.sleep(1000);
+                            out.write(strPes[i].getBytes());
+                        }
+                        break;
+                    case "UPDATE":
+                        ModelPessoa pes = alteraPessoa(dadosStr);
+                            System.out.println(dadosStr);
+                            String[] stPes = {"Pessoa Alterada com Sucesso!"};
+                            System.out.println(pes.toString());
+                            for (int i = 0; i < stPes.length; i++) {
+                                Thread.sleep(1000);
+                                out.write(stPes[i].getBytes());
+                            }
+                        break;
+                    case "DELETE":
+                        deletaPessoa(dadosStr);
+                        break;
+                    case "GET":
+                        String[] aDados = dadosStr.split(";");
+                        String cpf = aDados[2];
+                        getPessoaByCpfCnpj(cpf);
+                        break;
+                    case "LIST":
+                        String[] st = {getAllPessoas().toString()};
+                        for (int i = 0; i < st.length; i++) {
+                            Thread.sleep(1000);
+                            out.write(st[i].getBytes());
+                        }
+                        break;
+                }
+            } catch (SocketException e) {
+                e.printStackTrace();
             }
-            String op = bobTheBuilder.toString().split(";")[0];
-            String classe = bobTheBuilder.toString().split(";")[0];
-            switch (op) {
-                case "INSERT":
-                    iserePessoa(bobTheBuilder.toString());
-                    break;
-                case "UPDATE":
-                    alteraPessoa(bobTheBuilder.toString());
-                    break;
-            }
+//        server.close();
         }
     }
 
     public static boolean deletaPessoa(String Dados) {
         String[] aDados = Dados.split(";");
         String cpf = aDados[2];
-        for (ModelTurma turma : getTurma()) {
+        for (ModelTurma turma : getTurmas()) {
             if (turma.deletePessoa(cpf)) {
                 return true;
             }
@@ -96,7 +138,7 @@ public class ControllerConexao extends InterfaceSocketConnection {
      *
      * @param Dados
      */
-    public static boolean alteraPessoa(String Dados) {
+    public static ModelPessoa alteraPessoa(String Dados) {
         String[] aDados = Dados.split(";");
         String op = aDados[0];
         String classe = aDados[1];
@@ -108,7 +150,7 @@ public class ControllerConexao extends InterfaceSocketConnection {
         String graduacao = "";
         String nomeTruma = aDados[7];
 
-        if (tipoPes == tipoAluno) {
+        if (tipoAluno.equals(tipoPes)) {
             matricula = aDados[6];
             ModelPessoa aluno = getPessoaByCpfCnpj(cpf);
             aluno.setNome(nome);
@@ -117,8 +159,8 @@ public class ControllerConexao extends InterfaceSocketConnection {
             ((ModelAluno) aluno).setMatricula(matricula);
             ModelTurma turma = getTurmaByName(nomeTruma);
             turma.addAluno(((ModelAluno) aluno));
-            return true;
-        } else if (tipoPes == tipoProfessor) {
+            return turma.getPessoaByCpfCnpj(cpf);
+        } else if (tipoProfessor.equals(tipoPes)) {
             graduacao = aDados[6];
             ModelPessoa professor = getPessoaByCpfCnpj(cpf);
             professor.setNome(nome);
@@ -127,9 +169,9 @@ public class ControllerConexao extends InterfaceSocketConnection {
             ((ModelProfessor) professor).setNivelGraduacao(graduacao);
             ModelTurma turma = getTurmaByName(nomeTruma);
             turma.setProfessor(((ModelProfessor) professor));
-            return true;
+            return turma.getProfessor();
         }
-        return false;
+        return null;
 
     }
 
@@ -142,7 +184,7 @@ public class ControllerConexao extends InterfaceSocketConnection {
      *
      * @param Dados
      */
-    public static boolean iserePessoa(String Dados) {
+    public static ModelPessoa iserePessoa(String Dados) {
         String[] aDados = Dados.split(";");
         String op = aDados[0];
         String classe = aDados[1];
@@ -154,23 +196,23 @@ public class ControllerConexao extends InterfaceSocketConnection {
         String graduacao = "";
         String nomeTruma = aDados[7];
 
-        if (tipoPes == tipoAluno) {
+        if (tipoAluno.equals(tipoPes)) {
             matricula = aDados[6];
             ModelAluno aluno = new ModelAluno(nome, cpf);
             aluno.setEndereco(endereco);
             aluno.setMatricula(nome);
             ModelTurma turma = getTurmaByName(nomeTruma);
             turma.addAluno(aluno);
-            return true;
-        } else if (tipoPes == tipoProfessor) {
+            return turma.getPessoaByCpfCnpj(cpf);
+        } else if (tipoProfessor.equals(tipoPes)) {
             graduacao = aDados[6];
             ModelProfessor professor = new ModelProfessor(nome, cpf);
             professor.setNivelGraduacao(graduacao);
             ModelTurma turma = getTurmaByName(nomeTruma);
             turma.setProfessor(professor);
-            return true;
+            return turma.getProfessor();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -180,19 +222,18 @@ public class ControllerConexao extends InterfaceSocketConnection {
      * @return
      */
     public static ModelTurma getTurmaByName(String nome) {
-        for (ModelTurma Turma : turmas) {
-            if (Turma.getDescricao() == nome) {
+        for (ModelTurma Turma : getTurmas()) {
+            if (Turma.getDescricao().equals(nome)) {
                 return Turma;
             }
-            ModelTurma newTurma = new ModelTurma(nome);
-            addTurma(newTurma);
-            return newTurma;
         }
-        return null;
+        ModelTurma newTurma = new ModelTurma(nome);
+        addTurma(newTurma);
+        return newTurma;
     }
 
     public static ModelPessoa getPessoaByCpfCnpj(String cpfCnpj) {
-        for (ModelTurma Turma : turmas) {
+        for (ModelTurma Turma : getTurmas()) {
             ModelPessoa pes = (Turma.getPessoaByCpfCnpj(cpfCnpj));
             if (pes != null) {
                 return pes;
@@ -200,5 +241,13 @@ public class ControllerConexao extends InterfaceSocketConnection {
             return null;
         }
         return null;
+    }
+
+    public static StringBuilder getAllPessoas() {
+        StringBuilder bobTheBuilder = new StringBuilder();
+        for (ModelTurma Turma : getTurmas()) {
+            bobTheBuilder.append(Turma.getListaPessoas() + "\n");
+        }
+        return bobTheBuilder;
     }
 }
