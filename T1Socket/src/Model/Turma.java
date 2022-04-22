@@ -61,7 +61,7 @@ public class Turma extends Model{
     
     public void addAluno(Aluno aluno) {
         if (alunos == null) {
-            alunos = new ArrayList<Aluno>();
+            alunos = new ArrayList<>();
         }
         alunos.add(aluno);
     }
@@ -76,7 +76,7 @@ public class Turma extends Model{
     
     public List<Aluno> getAlunos() {
         if (alunos == null) {
-            alunos = new ArrayList<Aluno>();
+            alunos = new ArrayList<>();
         }
         return alunos;
     }
@@ -109,19 +109,20 @@ public class Turma extends Model{
         return false;
     }
     
+    @Override
     public String toString() {
         StringBuilder bobTheBuilder = new StringBuilder();
         bobTheBuilder.append("Turma:"+ "\n");
-        bobTheBuilder.append(getDescricao()+ "\n");
+        bobTheBuilder.append(getDescricao()).append("\n");
         if (Professor != null) {
             bobTheBuilder.append("Professor" + "\n");
-            bobTheBuilder.append(Professor.toString() + "\n");
+            bobTheBuilder.append(Professor.toString()).append("\n");
         }
         if (alunos != null) {
             bobTheBuilder.append("Alunos: " + "\n");
         }
         for (Aluno aluno : getAlunos()) {
-            bobTheBuilder.append(aluno.toString()+ "\n");
+            bobTheBuilder.append(aluno.toString()).append("\n");
             bobTheBuilder.append("    ======================" + "\n");
         }
         bobTheBuilder.append("==========================" + "\n");
@@ -130,7 +131,7 @@ public class Turma extends Model{
 
     @Override
     public int requiredArgs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 3;
     }
     
 }

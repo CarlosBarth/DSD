@@ -5,10 +5,8 @@
  */
 package Controller;
 
-import Interfaces.InterfaceSocketConnection;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
 import java.io.OutputStream;
 import java.net.ServerSocket;
@@ -21,18 +19,11 @@ import Operations.Operation;
  *
  * @author 07166848960
  */
-public class ControllerConexao extends InterfaceSocketConnection {
+public class ControllerConexao {
 
     private static OutputStream out;
-    private static InputStream in;
     private static DataInputStream input;
     private static ServerSocket server;
-    private static Socket conn;
-
-    public ControllerConexao() throws IOException {
-        server = new ServerSocket(80);
-        server.setReuseAddress(true);
-    }
 
     public static void main(String[] args) throws IOException, ParseException, InterruptedException, Exception {
         IniSet.inicialyzeData();
@@ -53,6 +44,8 @@ public class ControllerConexao extends InterfaceSocketConnection {
     }
 
     public static void runServer() throws Exception {
+        server = new ServerSocket(80);
+        server.setReuseAddress(true);
         System.out.println("Aguardando conexao...");
 
         try (Socket conn = server.accept();) /* try-with  */ {
@@ -70,7 +63,6 @@ public class ControllerConexao extends InterfaceSocketConnection {
         conn.setKeepAlive(true);
         conn.setSoTimeout(9999999);
         out = conn.getOutputStream();
-        in = conn.getInputStream();
         input = new DataInputStream(conn.getInputStream());
 
         System.out.println("Conectado com: " + conn.getInetAddress().getHostAddress());
