@@ -31,7 +31,6 @@ public class UpdateTurma extends Operation {
             return Dao.getInstance().getTurma(Integer.parseInt(args[2]));
         } catch (Exception ex) {
             setSucess(false);
-            setErrorMsg(new String[] {ex.getMessage()});
         }
         return null;
     }

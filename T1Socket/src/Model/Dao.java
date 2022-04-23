@@ -37,11 +37,11 @@ public class Dao {
     }
 
     public Aluno getAluno(String cpf, int idTurma) throws Exception {
-       Turma oTurma = getTurma(idTurma);
-       if (oTurma == null) {
+        Turma oTurma = getTurma(idTurma);
+        if (oTurma == null) {
             throw new Exception("Nenhuma Turma encontrado para o Id: " + idTurma);
-       }
-       for (Pessoa pessoa : oTurma.getAlunos()) {
+        }
+        for (Pessoa pessoa : oTurma.getAlunos()) {
             if (pessoa instanceof Aluno && pessoa.getCpf().equals(cpf)) {
                 return (Aluno) pessoa;
             }
@@ -49,13 +49,12 @@ public class Dao {
         throw new Exception("Nenhum Aluno encontrado para o CPF: " + cpf);
     }
 
-    public Professor getProfessor(String cpf, String turma) throws Exception {
-        for (Pessoa pessoa : getPessoas()) {
-            if (pessoa instanceof Professor && pessoa.getCpf().equals(cpf)) {
-                return (Professor) pessoa;
-            }
+    public Professor getProfessor(Pessoa pes, int idTurma) throws Exception {
+        Turma turma = getTurma(idTurma);
+        if (turma.getProfessor().getCpf().equals(pes.getCpf())) {
+            return (Professor)turma.getProfessor();
         }
-        throw new Exception("Nenhum Aluno encontrado para o CPF: " + cpf);
+        return null;
     }
 
     public Pessoa getPessoa(String cpf) throws Exception {
@@ -80,45 +79,82 @@ public class Dao {
         Turma newTurma = new Turma(nome);
         newTurma.setIdTurma(idTurma);
         getTurmas().add(newTurma);
-        idTurma ++;
+        idTurma++;
         return newTurma;
     }
 
-//    public Pessoa newInstancePessoa(String[] args) throws Exception {
-//        validaArgs(args);
-//        if (tipoAluno.equals(args[5])) {
-//            Aluno aluno = new Aluno(args[3], args[2], args[4], args[6]);
-//            aluno.setMatricula(args[6]);
-//            return aluno;
-//        } else if (tipoProfessor.equals(args[5])) {
-//            Professor prof = new Professor(args[3], args[2], args[4], args[6]);
-//            prof.setNivelGraduacao(args[6]);
-//            return prof;
-//        }
-//        return null;
-//    }
-//    public void validaArgs(String[] args) throws Exception{
-//        if (args.length < 7) {
-//            throw new Exception("Argumentos inválidos para a requisição");
-//        }
-//    } 
-//    public boolean inserePessoa(String[] args) throws Exception {
-//        Pessoa pes  = newInstancePessoa(args);
-//        Turma turma = getTurma(args[7]);
-//
-//        if (tipoAluno.equals(args[5])) {
-//            turma.addAluno((Aluno) pes);
-//            return true;
-//        } else if (tipoProfessor.equals(args[5])) {
-//            turma.setProfessor((Professor)pes);
-//            return true;
-//        }
-//        return false;
-//    }
+    public void removePessoa(Pessoa pes) {
+        getPessoas().remove(pes);
+        for (Turma turma : getTurmas()) {
+            turma.getAlunos().remove(pes);
+            if (turma.getProfessor() != null && turma.getProfessor().getCpf().equals(pes.getCpf())){
+                turma.setProfessor(null);
+            } 
+        }
+    }
+    
     public void addPessoaNaTurma(Pessoa pes, int idTurma) {
         Turma oTurma = getTurma(idTurma);
         if (pes instanceof Aluno) {
             oTurma.addAluno((Aluno) pes);
         }
+    }
+    
+    public void removePessoaDaTurma(Pessoa pes, int idTurma) throws Exception {
+        Turma turma = getTurma(idTurma);
+        if (pes instanceof Aluno) {
+            turma.getAlunos().remove((Aluno)pes);
+        } else if (turma.getProfessor().getCpf().equals(pes.getCpf())){
+                turma.setProfessor(null);
+        } else {
+            throw new Exception("Pessoa Não Encontrada");
+        }
+    }
+    
+    public String listProfessores() {
+        StringBuilder str = new StringBuilder();
+        if (getTurmas().size() > 0) {
+            str.append("Professores: " + "\n");
+        }
+        for (Turma turma : getTurmas()) {
+            if (turma == null) {
+                continue;
+            }
+            str.append(turma.getProfessor().toString() + "\n");
+            str.append("======================" + "\n");
+        }
+        return str.toString();
+    }
+    
+    public String listAlunos() {
+        StringBuilder str = new StringBuilder();
+        boolean find = false;
+        str.append("Alunos: " + "\n");
+        for (Pessoa pes : getPessoas()) {
+            if (pes instanceof Aluno) {
+                find = true;
+                str.append(pes.toString() + "\n");
+                str.append("======================" + "\n");
+            }
+        }
+        if (!find) {
+            str = null;
+        }
+        return str.toString();
+    }
+    
+    public String listTurmas() {
+        StringBuilder str = new StringBuilder();
+       if (getTurmas().size() > 0) {
+            str.append("Turmas: " + "\n");
+        }
+        for (Turma turma : getTurmas()) {
+            if (turma == null) {
+                continue;
+            }
+            str.append(turma.toString() + "\n");
+            str.append("======================" + "\n");
+        }
+        return str.toString();
     }
 }

@@ -55,7 +55,7 @@ public class ControllerConexao {
                 executeOperation(input.readUTF());
             }
         } catch (SocketException e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 
@@ -75,7 +75,7 @@ public class ControllerConexao {
             op.execute();
             writeOutPut(op.getMessage());
         } catch (Exception ex) {
-            writeOutPut(new String[] {"Erro na execução do Servidor. Tente novamente em instantes"});
+            writeOutPut(new String[] {"Não foi possível reconhecer a Operação!"});
         }
     }
 }

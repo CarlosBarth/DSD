@@ -17,10 +17,9 @@ public class Turma extends Model{
     
     private int idTurma;
     private String descricao;
-    private int qtdAlunos;
     private int ano;
     private static List<Aluno> alunos;
-    private static Professor Professor;
+    private Professor Professor;
 
     public Turma(String descricaoEntrada) {
         descricao = descricaoEntrada;
@@ -44,21 +43,13 @@ public class Turma extends Model{
     }
 
     public int getQtdAlunos() {
-        return qtdAlunos;
-    }
-
-    public void setQtdAlunos(int qtdAlunos) {
-        this.qtdAlunos = qtdAlunos;
+        return getAlunos().size();
     }
 
     public int getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-    
     public void addAluno(Aluno aluno) {
         if (alunos == null) {
             alunos = new ArrayList<>();
@@ -70,7 +61,7 @@ public class Turma extends Model{
         Professor = professor;
     }
     
-    public static Pessoa getProfessor() {
+    public Pessoa getProfessor() {
         return Professor;
     }
     
@@ -112,10 +103,12 @@ public class Turma extends Model{
     @Override
     public String toString() {
         StringBuilder bobTheBuilder = new StringBuilder();
-        bobTheBuilder.append("Turma:"+ "\n");
+        bobTheBuilder.append("Turma: " + getIdTurma() + "\n");
         bobTheBuilder.append(getDescricao()).append("\n");
+        bobTheBuilder.append("Quantidade de Alunos: " + getQtdAlunos() + "\n");
+        bobTheBuilder.append("Ano: " + getAno() + "\n");
         if (Professor != null) {
-            bobTheBuilder.append("Professor" + "\n");
+            bobTheBuilder.append("Professor: " + "\n");
             bobTheBuilder.append(Professor.toString()).append("\n");
         }
         if (alunos != null) {

@@ -55,13 +55,35 @@ public class Pessoa extends Model{
 
     @Override
     public String toString() {
-        return "    Nome: " + getNome() + "\n"
-                + "    CPF: " + getCpf() + "\n"
-                + "    Endereço: " + getEndereco()+ "\n";
+        return    "         Nome: "  + getNome() + "\n"
+                + "          CPF: " + getCpf() + "\n"
+                + "     Endereço: " + getEndereco()+ "\n";
     }
 
     @Override
     public int requiredArgs() {
         return 5;
+    }
+    
+      
+    public StringBuilder getVirtualInfo() {
+        StringBuilder str = new StringBuilder();
+        str.append("Dados Pessoais: \n " + toString());
+        if (Dao.getInstance().getTurmas().size() > 0) {
+            for (Turma turma : Dao.getInstance().getTurmas()) {
+                if (turma == null) {
+                    continue;
+                }
+                if (turma.getProfessor().getCpf().equals(getCpf())) {
+                    str.append("Professor da Turmna: " + turma.getDescricao() + "\n");
+                }
+                for (Aluno aluno : turma.getAlunos()) {
+                    if (aluno.getCpf().equals(getCpf())) {
+                        str.append("Matriculado na Turma: " + turma.getDescricao() + "\n");
+                    }
+                }
+            }
+        }
+        return str;
     }
 }

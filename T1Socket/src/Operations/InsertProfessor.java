@@ -27,13 +27,13 @@ public class InsertProfessor extends Operation{
             if (args.length == 4) {
                     Professor professor = (Professor)Dao.getInstance().getPessoa(args[2]);
                     findTurma().setProfessor(professor);
+                    return professor;
 
             } else {
                 return Professor.getInstance(args);
             }
         } catch (Exception ex) {
             setSucess(false);
-            setErrorMsg(new String[]{ex.getMessage()});
         }
         return null;
     }

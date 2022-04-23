@@ -1,22 +1,20 @@
 package Operations;
 
-import Model.Aluno;
 import Model.Dao;
 import Model.Model;
-import Model.Pessoa;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Model.Turma;
 
 /**
  *
  * @author Barth
  */
-public class InsertAluno extends Operation {
+public class DeleteTurma extends Operation {
 
     @Override
     public void execute() {
         try {
-            Dao.getInstance().getPessoas().add((Aluno) getModelo());
+            Turma turma = (Turma) getModelo();
+            Dao.getInstance().getTurmas().remove(turma);
         } catch (Exception ex) {
             setSucess(false);
         }
@@ -25,13 +23,9 @@ public class InsertAluno extends Operation {
     @Override
     public Model getInstanceModelo(String[] args) {
         try {
-            if (args.length == 4) {
-                    Aluno aluno = (Aluno)Dao.getInstance().getPessoa(args[2]);
-                    findTurma().addAluno(aluno);
-
-            } else {
-                return Aluno.getInstance(args);
-            }
+            if (args[2] != null) {
+                return Dao.getInstance().getTurma(Integer.parseInt(getArgs()[2]));
+            } 
         } catch (Exception ex) {
             setSucess(false);
         }
@@ -40,29 +34,35 @@ public class InsertAluno extends Operation {
 
     @Override
     public String[] getSucessMsg() {
-        return new String[]{"Aluno inserido com sucesso!"};
+        if (sucessMsg == null) {
+            sucessMsg = new String[] {"Turma removida com sucesso!"};
+        }
+        return sucessMsg;
     }
 
     @Override
     public String[] getErrorMsg() {
-        return new String[]{"Não foi Possivel Inserir o Aluno."};
+        if (errorMsg == null) {
+            errorMsg = new String[]{"Não foi Econtrar a Turma id: " + getArgs()[2]};
+        }
+        return errorMsg;
     }
 
 }
 
 
 
+//String dadosStr = "GET;Pessoa;cpf";
+//String dadosStr = "GET;Turma;id";
+//String dadosStr = "DELETE;Pessoa;cpf";
+//String dadosStr = "DELETE;Turma;id";
+//String dadosStr = "DELETE;Aluno;cpf;idTurma";
+//String dadosStr = "DELETE;Professor;cpf;idTurma";
+//String dadosStr = "LIST;Professor;
+//String dadosStr = "LIST;Alunos;
 //String dadosStr = "LIST;Turma;
 
 
-//String dadosStr = "LIST;Alunos;
-//String dadosStr = "LIST;Professor;
-//String dadosStr = "DELETE;Professor;cpf;idTurma";
-//String dadosStr = "DELETE;Aluno;cpf;idTurma";
-//String dadosStr = "DELETE;Turma;id";
-//String dadosStr = "DELETE;Pessoa;cpf";
-//String dadosStr = "GET;Turma;id";
-//String dadosStr = "GET;Pessoa;cpf";
 //String dadosStr = "UPDATE;Turma;id;descricao";
 //String dadosStr = "UPDATE;Aluno;cpf;nome;endereco;matricula;";
 //String dadosStr = "UPDATE;Professor;cpf;nome;endereco;graduacao;";
