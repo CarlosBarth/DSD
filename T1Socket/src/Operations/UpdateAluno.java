@@ -19,7 +19,6 @@ public class UpdateAluno extends Operation {
             aluno.setMatricula(getArgs()[5]);
         } catch (Exception ex) {
             setSucess(false);
-            setErrorMsg(new String[] {ex.getMessage()});
         }
     }
 
