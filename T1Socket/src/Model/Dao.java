@@ -60,7 +60,10 @@ public class Dao {
     public Pessoa getPessoa(String cpf) throws Exception {
         for (Pessoa pessoa : getPessoas()) {
             if (pessoa.getCpf().equals(cpf)) {
-                return pessoa;
+                if (pessoa instanceof Aluno){
+                    return (Aluno)pessoa;
+                }
+                return (Professor)pessoa;
             }
         }
         throw new Exception("Nenhuma Pessoa encontrada para o CPF: " + cpf);
@@ -113,15 +116,17 @@ public class Dao {
     
     public String listProfessores() {
         StringBuilder str = new StringBuilder();
-        if (getTurmas().size() > 0) {
-            str.append("Professores: " + "\n");
-        }
-        for (Turma turma : getTurmas()) {
-            if (turma == null) {
-                continue;
+        boolean find = false;
+        str.append("Professores: " + "\n");
+        for (Pessoa pes : getPessoas()) {
+            if (pes instanceof Professor) {
+                find = true;
+                str.append(pes.toString() + "\n");
+                str.append("======================" + "\n");
             }
-            str.append(turma.getProfessor().toString() + "\n");
-            str.append("======================" + "\n");
+        }
+        if (!find) {
+            return "";
         }
         return str.toString();
     }

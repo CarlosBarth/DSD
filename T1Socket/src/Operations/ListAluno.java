@@ -12,10 +12,12 @@ public class ListAluno extends Operation {
     @Override
     public void execute() {
         try {
-            String[] str = new String[] {Dao.getInstance().listAlunos()};
-            if (str.length == 0) {
+            String retorno = Dao.getInstance().listAlunos();
+            if (retorno == "") {
                 setSucess(false);
+                return;
             }
+            String[] str = new String[] {Dao.getInstance().listAlunos()};
             setSucessMsg(str);
         } catch (Exception ex) {
             setSucess(false);

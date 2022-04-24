@@ -26,7 +26,7 @@ public class ControllerServidor {
     private static ServerSocket server;
 
     public static void run(String[] args) throws IOException, ParseException, InterruptedException, Exception {
-        IniSet.inicialyzeData();
+//        IniSet.inicialyzeData();
 
         while (true) {
 

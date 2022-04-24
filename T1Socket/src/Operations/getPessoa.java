@@ -14,6 +14,7 @@ public class GetPessoa extends Operation {
     public void execute() {
         try {
             Pessoa pes = (Pessoa) getModelo();
+            
             setSucessMsg(new String[]{pes.getVirtualInfo().toString()});
         } catch (Exception ex) {
             setSucess(false);

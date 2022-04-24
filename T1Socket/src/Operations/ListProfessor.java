@@ -12,10 +12,12 @@ public class ListProfessor extends Operation {
     @Override
     public void execute() {
         try {
-            String[] str = new String[] {Dao.getInstance().listProfessores()};
-            if (str.length == 0) {
+            String retorno = Dao.getInstance().listProfessores();
+            if (retorno == "") {
                 setSucess(false);
+                return;
             }
+            String[] str = new String[] {retorno};
             setSucessMsg(str);
         } catch (Exception ex) {
             setSucess(false);
