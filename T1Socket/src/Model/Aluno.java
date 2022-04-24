@@ -35,13 +35,7 @@ public class Aluno extends Pessoa{
         return super.toString() + "    Matricula: " + getMatricula() + "\n";
     }
 
-    public static Model getInstance(String[] args) {
+    public static Model getNewInstance(String[] args) {
         return new Aluno(args[3], args[2], args[4],args[5]);
     }
-
-    @Override
-    public int requiredArgs() {
-        return 7;
-    }
-    
 }

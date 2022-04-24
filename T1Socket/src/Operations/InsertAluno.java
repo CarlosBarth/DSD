@@ -3,9 +3,6 @@ package Operations;
 import Model.Aluno;
 import Model.Dao;
 import Model.Model;
-import Model.Pessoa;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,10 +24,10 @@ public class InsertAluno extends Operation {
         try {
             if (args.length == 4) {
                     Aluno aluno = (Aluno)Dao.getInstance().getPessoa(args[2]);
-                    findTurma().addAluno(aluno);
+                    Dao.getInstance().getTurma(Integer.parseInt(args[3])).addAluno(aluno);
 
             } else {
-                return Aluno.getInstance(args);
+                return Aluno.getNewInstance(args);
             }
         } catch (Exception ex) {
             setSucess(false);
@@ -49,25 +46,3 @@ public class InsertAluno extends Operation {
     }
 
 }
-
-
-
-//String dadosStr = "LIST;Turma;
-
-
-//String dadosStr = "LIST;Alunos;
-//String dadosStr = "LIST;Professor;
-//String dadosStr = "DELETE;Professor;cpf;idTurma";
-//String dadosStr = "DELETE;Aluno;cpf;idTurma";
-//String dadosStr = "DELETE;Turma;id";
-//String dadosStr = "DELETE;Pessoa;cpf";
-//String dadosStr = "GET;Turma;id";
-//String dadosStr = "GET;Pessoa;cpf";
-//String dadosStr = "UPDATE;Turma;id;descricao";
-//String dadosStr = "UPDATE;Aluno;cpf;nome;endereco;matricula;";
-//String dadosStr = "UPDATE;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "INSERT;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "INSERT;Turma;nome";
-//String dadosStr = "INSERT;Aluno;cpf;nome;endereco;Matricula";
-//String dadosStr = "INSERT;Aluno;cpf;idTurma";
-//String dadosStr = "INSERT;Professor;cpf;idTurma";

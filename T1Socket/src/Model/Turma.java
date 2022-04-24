@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  *
- * @author 07166848960
+ * @author Barth
  */
-public class Turma extends Model{
+public class Turma implements Model{
     
     private int idTurma;
     private String descricao;
@@ -122,9 +122,4 @@ public class Turma extends Model{
         return bobTheBuilder.toString();
     }
 
-    @Override
-    public int requiredArgs() {
-        return 3;
-    }
-    
 }

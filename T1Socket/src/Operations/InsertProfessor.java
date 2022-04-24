@@ -1,6 +1,5 @@
 package Operations;
 
-import Model.Professor;
 import Model.Dao;
 import Model.Model;
 import Model.Professor;
@@ -26,11 +25,11 @@ public class InsertProfessor extends Operation{
         try {
             if (args.length == 4) {
                     Professor professor = (Professor)Dao.getInstance().getPessoa(args[2]);
-                    findTurma().setProfessor(professor);
+                    Dao.getInstance().getTurma(Integer.parseInt(args[3])).setProfessor(professor);
                     return professor;
 
             } else {
-                return Professor.getInstance(args);
+                return Professor.getNewInstance(args);
             }
         } catch (Exception ex) {
             setSucess(false);
@@ -49,23 +48,3 @@ public class InsertProfessor extends Operation{
     }
     
 }
-
-//String dadosStr = "INSERT;Professor;cpf;idTurma";
-//String dadosStr = "INSERT;Professor;cpf;idTurma";
-
-
-//String dadosStr = "INSERT;Professor;cpf;nome;endereco;Matricula";
-//String dadosStr = "INSERT;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "INSERT;Turma;nome";
-//String dadosStr = "UPDATE;Professor;cpf;nome;endereco;matricula;";
-//String dadosStr = "UPDATE;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "UPDATE;Turma;id;descricao";
-//String dadosStr = "GET;Pessoa;cpf";
-//String dadosStr = "GET;Turma;id";
-//String dadosStr = "DELETE;Pessoa;cpf";
-//String dadosStr = "DELETE;Turma;id";
-//String dadosStr = "DELETE;Professor;cpf;idTurma";
-//String dadosStr = "DELETE;Professor;cpf;idTurma";
-//String dadosStr = "LIST;Professor;
-//String dadosStr = "LIST;Professors;
-//String dadosStr = "LIST;Turma;

@@ -1,8 +1,6 @@
 package Operations;
 
-import Model.Dao;
 import Model.Model;
-import Model.Turma;
 
 /**
  *
@@ -66,7 +64,4 @@ public abstract class Operation {
         this.sucess = sucess;
     }
     
-    public Turma findTurma(){
-        return Dao.getInstance().getTurma(Integer.parseInt(args[3]));
-    }
 }

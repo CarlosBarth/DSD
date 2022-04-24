@@ -35,7 +35,7 @@ public class Professor extends Pessoa {
         return super.toString() + "    Nível de Graduação: " + getNivelGraduacao() + "\n";
     }
     
-    public static Professor getInstance(String[] args) {
+    public static Professor getNewInstance(String[] args) {
         return new Professor(args[3], args[2], args[4],args[5]);
     }
 }

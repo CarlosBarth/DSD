@@ -49,17 +49,3 @@ public class UpdateTurma extends Operation {
     }
 
 }
-
-//String dadosStr = "INSERT;Turma;cpf;nome;endereco;Matricula";
-//String dadosStr = "INSERT;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "INSERT;Turma;nome";
-//String dadosStr = "UPDATE;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "UPDATE;Turma;id;descricao";
-//String dadosStr = "GET;Pessoa;cpf";
-//String dadosStr = "GET;Turma;id";
-//String dadosStr = "DELETE;Pessoa;cpf";
-//String dadosStr = "DELETE;Professor;cpf;idTurma";
-//String dadosStr = "DELETE;Turma;id";
-//String dadosStr = "LIST;Professor;
-//String dadosStr = "LIST;Turmas;
-//String dadosStr = "LIST;Turma;

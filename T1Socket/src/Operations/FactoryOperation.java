@@ -10,5 +10,4 @@ public class FactoryOperation {
         op.setArgs(args);
         return op;
     }
-    
 }

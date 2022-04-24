@@ -4,7 +4,7 @@ package Model;
  *
  * @author Barth
  */
-public class Pessoa extends Model{
+public abstract class Pessoa implements Model{
     
     private int idPessoa;
     private String nome;
@@ -17,10 +17,6 @@ public class Pessoa extends Model{
         this.endereco   = endereco;
     }
 
-    public static Model getInstance(String[] args) {
-        return new Pessoa(args[3], args[2], args[4]);
-    }
-    
     public int getIdPessoa() {
         return idPessoa;
     }
@@ -60,12 +56,6 @@ public class Pessoa extends Model{
                 + "     Endereço: " + getEndereco()+ "\n";
     }
 
-    @Override
-    public int requiredArgs() {
-        return 5;
-    }
-    
-      
     public StringBuilder getVirtualInfo() {
         StringBuilder str = new StringBuilder();
         str.append("Dados Pessoais: \n " + toString());
