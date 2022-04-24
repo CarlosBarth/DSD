@@ -38,7 +38,6 @@ public class ControllerConexao {
 
     public static void writeOutPut(String[] str) throws Exception {
         for (int i = 0; i < str.length; i++) {
-            Thread.sleep(1000);
             out.write(str[i].getBytes());
         }
     }
