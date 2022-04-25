@@ -121,7 +121,7 @@ public class Dao {
         for (Pessoa pes : getPessoas()) {
             if (pes instanceof Professor) {
                 find = true;
-                str.append(pes.toString() + "\n");
+                str.append(((Professor)pes).toString() + "\n");
                 str.append("======================" + "\n");
             }
         }
@@ -138,7 +138,7 @@ public class Dao {
         for (Pessoa pes : getPessoas()) {
             if (pes instanceof Aluno) {
                 find = true;
-                str.append(pes.toString() + "\n");
+                str.append(((Aluno)pes).toString() + "\n");
                 str.append("======================" + "\n");
             }
         }
