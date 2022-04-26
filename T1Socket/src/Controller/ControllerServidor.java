@@ -31,7 +31,6 @@ public class ControllerServidor {
         while (true) {
 
             runServer();
-
             server.close();
         }
     }
