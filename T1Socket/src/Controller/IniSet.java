@@ -14,24 +14,25 @@ public class IniSet {
     public static void inicialyzeData() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         setIniData("INSERT;Aluno;07166848960;CARLOS;RUA TESTE;11234212");
         setIniData("INSERT;Aluno;45685752136;Dailon;RUA TESTE 3;12355");
-        setIniData("INSERT;Professor;45896258741;Fernando;RUA TESTE 2;Doutorado");
+//        setIniData("INSERT;Professor;45896258741;Fernando;RUA TESTE 2;Doutorado");
         setIniData("INSERT;Turma;DSD");
         setIniData("INSERT;Aluno;07166848960;1");
-        setIniData("INSERT;Aluno;45685752136;1");
-        setIniData("INSERT;Professor;45896258741;1");
-        setIniData("UPDATE;Aluno;07166848960;Carlos Barth;Rua Francisco AX;000001;");
-        setIniData("UPDATE;Professor;45896258741;Fernando;Rua alterada;Doutor;");
-        setIniData("UPDATE;Turma;1;Sistemas Paralelos e Distribuidos");
-        setIniData("GET;Pessoa;07166848960");
+        setIniData("INSERT;Turma;DDM");
+//        setIniData("INSERT;Aluno;45685752136;1");
+//        setIniData("INSERT;Professor;45896258741;1");
+//        setIniData("UPDATE;Aluno;07166848960;Carlos Barth;Rua Francisco AX;000001;");
+//        setIniData("UPDATE;Professor;45896258741;Fernando;Rua alterada;Doutor;");
+//        setIniData("UPDATE;Turma;1;Sistemas Paralelos e Distribuidos");
+//        setIniData("GET;Pessoa;07166848960");
         setIniData("GET;Turma;1");
 //        setIniData("DELETE;Pessoa;07166848960");
 //        setIniData("GET;Turma;1");
 //        setIniData("DELETE;Turma;1");
 //        setIniData("DELETE;Aluno;07166848960;1");
 //        setIniData("DELETE;Professor;45896258741;1");
-        setIniData("GET;Turma;1");
-        setIniData("LIST;Professor");
-        setIniData("LIST;Aluno");
+//        setIniData("GET;Turma;1");
+//        setIniData("LIST;Professor");
+//        setIniData("LIST;Aluno");
         setIniData("LIST;Turma");
 //        setIniData();
 

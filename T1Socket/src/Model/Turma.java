@@ -22,11 +22,14 @@ public class Turma implements Model{
     private Professor Professor;
 
     public Turma(String descricaoEntrada) {
-        alunos = new ArrayList<Aluno>();
         descricao = descricaoEntrada;
         ano = Calendar.getInstance().get(Calendar.YEAR);
     }
 
+    public void resetAlunos() {
+        alunos = new ArrayList<Aluno>();
+    }
+    
     public int getIdTurma() {
         return idTurma;
     }

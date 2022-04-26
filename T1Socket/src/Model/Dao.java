@@ -83,6 +83,7 @@ public class Dao {
 
     public Turma newInstanceTurma(String nome) {
         Turma newTurma = new Turma(nome);
+        newTurma.resetAlunos();
         newTurma.setIdTurma(idTurma);
         getTurmas().add(newTurma);
         idTurma++;
@@ -153,4 +154,5 @@ public class Dao {
         }
         return "0" + String.valueOf(qtd)+ "\n" + str.toString();
     }
+
 }

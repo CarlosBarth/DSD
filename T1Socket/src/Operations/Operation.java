@@ -63,5 +63,4 @@ public abstract class Operation {
     public void setSucess(boolean sucess){
         this.sucess = sucess;
     }
-    
 }
