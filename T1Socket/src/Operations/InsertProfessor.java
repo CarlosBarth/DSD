@@ -13,7 +13,7 @@ public class InsertProfessor extends Operation{
     @Override
     public void execute() {
         try {
-            if (getArgs().length == 6) {
+            if (getArgs().length >= 6) {
                 Dao.getInstance().getPessoas().add((Professor) getModelo());
             } else {
                 getModelo();

@@ -104,6 +104,8 @@ public class Turma implements Model{
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(getIdTurma() + ";" + getDescricao() + ";" +  getQtdAlunos() + ";" + getAno() +"\n");
+        str.append("Professor: "+"\n");
+        str.append(getProfessor().toString() + "\n");
         if (alunos.size() > 0 ) {
             str.append("Alunos: "+"\n");
         }
