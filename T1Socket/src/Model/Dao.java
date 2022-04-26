@@ -83,7 +83,7 @@ public class Dao {
 
     public Turma newInstanceTurma(String nome) {
         Turma newTurma = new Turma(nome);
-        newTurma.resetAlunos();
+//        newTurma.resetAlunos();
         newTurma.setIdTurma(idTurma);
         getTurmas().add(newTurma);
         idTurma++;
