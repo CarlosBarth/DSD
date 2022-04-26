@@ -1,0 +1,3 @@
+
+netstat -ano | findstr :5560
+taskkill /pid yourid /f

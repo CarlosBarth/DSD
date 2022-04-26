@@ -26,7 +26,7 @@ public class ControllerServidor {
     private static ServerSocket server;
 
     public static void run(String[] args) throws IOException, ParseException, InterruptedException, Exception {
-        IniSet.inicialyzeData();
+//        IniSet.inicialyzeData();
 
         while (true) {
 
@@ -43,7 +43,7 @@ public class ControllerServidor {
     }
 
     private static void runServer() throws Exception {
-        server = new ServerSocket(84);// para evitar que ja esteja sendo utilizada
+        server = new ServerSocket(5560);// para evitar que ja esteja sendo utilizada
         server.setReuseAddress(true);
         System.out.println("Aguardando conexao...");
 
@@ -54,6 +54,7 @@ public class ControllerServidor {
                 executeOperation(input.readUTF());
             }
         } catch (SocketException e) {
+            server.close();
             throw e;
         }
     }
