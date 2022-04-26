@@ -35,7 +35,7 @@ public class DeleteAluno extends Operation {
     @Override
     public String[] getSucessMsg() {
         if (sucessMsg == null) {
-            return new String[]{"Aluno removido da turma com sucesso!"};
+            return new String[]{"Aluno removido com sucesso!"};
         }
         return sucessMsg;
     }
@@ -43,7 +43,7 @@ public class DeleteAluno extends Operation {
     @Override
     public String[] getErrorMsg() {
         if (errorMsg == null) {
-            errorMsg = new String[]{"Não foi Econtrar o Aluno"};
+            errorMsg = new String[]{"Aluno não encontrado"};
         }
         return errorMsg;
     }

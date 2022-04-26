@@ -32,7 +32,7 @@ public class Aluno extends Pessoa{
 
     @Override
     public String toString() {
-        return super.toString() + "    Matricula: " + getMatricula() + "\n";
+        return super.toString() + ";" + getMatricula() + "\n";
     }
 
     public static Model getNewInstance(String[] args) {

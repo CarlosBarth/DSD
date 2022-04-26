@@ -102,24 +102,16 @@ public class Turma implements Model{
     
     @Override
     public String toString() {
-        StringBuilder bobTheBuilder = new StringBuilder();
-        bobTheBuilder.append("Turma: " + getIdTurma() + "\n");
-        bobTheBuilder.append(getDescricao()).append("\n");
-        bobTheBuilder.append("Quantidade de Alunos: " + getQtdAlunos() + "\n");
-        bobTheBuilder.append("Ano: " + getAno() + "\n");
-        if (Professor != null) {
-            bobTheBuilder.append("Professor: " + "\n");
-            bobTheBuilder.append(Professor.toString()).append("\n");
+        StringBuilder str = new StringBuilder();
+        str.append(getIdTurma() + ";" + getDescricao() + ";" +  getQtdAlunos() + ";" + getAno() +"\n");
+        if (alunos.size() > 0 ) {
+            str.append("Alunos: "+"\n");
         }
-        if (alunos != null) {
-            bobTheBuilder.append("Alunos: " + "\n");
+        
+        for (Aluno aluno : alunos) {
+            str.append(aluno.toString());
         }
-        for (Aluno aluno : getAlunos()) {
-            bobTheBuilder.append(aluno.toString()).append("\n");
-            bobTheBuilder.append("    ======================" + "\n");
-        }
-        bobTheBuilder.append("==========================" + "\n");
-        return bobTheBuilder.toString();
+        return str.toString();
     }
 
 }

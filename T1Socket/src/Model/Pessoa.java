@@ -51,9 +51,9 @@ public abstract class Pessoa implements Model{
 
     @Override
     public String toString() {
-        return    "         Nome: "  + getNome() + "\n"
-                + "          CPF: " + getCpf() + "\n"
-                + "     Endereço: " + getEndereco()+ "\n";
+        StringBuilder str = new StringBuilder();
+        str.append(getCpf() + ";" + getNome() + ";" + getEndereco());
+        return str.toString();
     }
 
     public StringBuilder getVirtualInfo() {

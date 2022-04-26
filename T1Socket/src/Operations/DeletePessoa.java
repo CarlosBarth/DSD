@@ -44,7 +44,7 @@ public class DeletePessoa extends Operation {
     @Override
     public String[] getErrorMsg() {
         if (errorMsg == null) {
-            errorMsg = new String[]{"Não foi Econtrar a Pessoa do CPF " + getArgs()[2]};
+            errorMsg = new String[]{"Pessoa não encontrada"};
         }
         return errorMsg;
     }

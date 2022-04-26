@@ -40,31 +40,15 @@ public class UpdateProfessor extends Operation {
 
     @Override
     public String[] getSucessMsg() {
-        return new String[]{"Professor alterado com sucesso!"};
+        return new String[]{"Professor atualizado com sucesso!"};
     }
 
     @Override
     public String[] getErrorMsg() {
         if (errorMsg == null) {
-            errorMsg = new String[]{"Não foi Possivel alterar o Professor."};
+            errorMsg = new String[]{"Não foi Possivel atualizar o Professor."};
         }
         return errorMsg;
     }
 
 }
-
-//String dadosStr = "INSERT;Professor;cpf;nome;endereco;Matricula";
-//String dadosStr = "INSERT;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "INSERT;Turma;nome";
-//String dadosStr = "UPDATE;Professor;cpf;nome;endereco;matricula;";
-//String dadosStr = "UPDATE;Professor;cpf;nome;endereco;graduacao;";
-//String dadosStr = "UPDATE;Turma;id;descricao";
-//String dadosStr = "GET;Pessoa;cpf";
-//String dadosStr = "GET;Turma;id";
-//String dadosStr = "DELETE;Pessoa;cpf";
-//String dadosStr = "DELETE;Turma;id";
-//String dadosStr = "DELETE;Professor;cpf;idTurma";
-//String dadosStr = "DELETE;Professor;cpf;idTurma";
-//String dadosStr = "LIST;Professor;
-//String dadosStr = "LIST;Professors;
-//String dadosStr = "LIST;Turma;

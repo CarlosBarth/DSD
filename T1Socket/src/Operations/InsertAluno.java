@@ -13,7 +13,11 @@ public class InsertAluno extends Operation {
     @Override
     public void execute() {
         try {
-            Dao.getInstance().getPessoas().add((Aluno) getModelo());
+            if (getArgs().length == 6) {
+                Dao.getInstance().getPessoas().add((Aluno) getModelo());
+            } else {
+                getModelo();
+            }
         } catch (Exception ex) {
             setSucess(false);
         }
@@ -37,7 +41,7 @@ public class InsertAluno extends Operation {
 
     @Override
     public String[] getSucessMsg() {
-        return new String[]{"Aluno inserido com sucesso!"};
+        return new String[]{"Aluno incluido com sucesso!"};
     }
 
     @Override

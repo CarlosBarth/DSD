@@ -13,7 +13,11 @@ public class InsertProfessor extends Operation{
     @Override
     public void execute() {
         try {
-            Dao.getInstance().getPessoas().add((Professor) getModelo());
+            if (getArgs().length == 6) {
+                Dao.getInstance().getPessoas().add((Professor) getModelo());
+            } else {
+                getModelo();
+            }
         } catch (Exception ex) {
             setSucess(false);
         }
@@ -39,7 +43,7 @@ public class InsertProfessor extends Operation{
 
     @Override
     public String[] getSucessMsg() {
-        return new String[] {"Professor inserido com sucesso!"};
+        return new String[] {"Professor incluido com sucesso!"};
     }
 
     @Override

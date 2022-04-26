@@ -52,7 +52,7 @@ public class Dao {
     public Professor getProfessor(Pessoa pes, int idTurma) throws Exception {
         Turma turma = getTurma(idTurma);
         if (turma.getProfessor().getCpf().equals(pes.getCpf())) {
-            return (Professor)turma.getProfessor();
+            return (Professor) turma.getProfessor();
         }
         return null;
     }
@@ -60,10 +60,13 @@ public class Dao {
     public Pessoa getPessoa(String cpf) throws Exception {
         for (Pessoa pessoa : getPessoas()) {
             if (pessoa.getCpf().equals(cpf)) {
-                if (pessoa instanceof Aluno){
-                    return (Aluno)pessoa;
+                if (pessoa == null) {
+                    continue;
                 }
-                return (Professor)pessoa;
+                if (pessoa instanceof Aluno) {
+                    return (Aluno) pessoa;
+                }
+                return (Professor) pessoa;
             }
         }
         throw new Exception("Nenhuma Pessoa encontrada para o CPF: " + cpf);
@@ -90,76 +93,64 @@ public class Dao {
         getPessoas().remove(pes);
         for (Turma turma : getTurmas()) {
             turma.getAlunos().remove(pes);
-            if (turma.getProfessor() != null && turma.getProfessor().getCpf().equals(pes.getCpf())){
+            if (turma.getProfessor() != null && turma.getProfessor().getCpf().equals(pes.getCpf())) {
                 turma.setProfessor(null);
-            } 
+            }
         }
     }
-    
+
     public void addPessoaNaTurma(Pessoa pes, int idTurma) {
         Turma oTurma = getTurma(idTurma);
         if (pes instanceof Aluno) {
             oTurma.addAluno((Aluno) pes);
         }
     }
-    
+
     public void removePessoaDaTurma(Pessoa pes, int idTurma) throws Exception {
         Turma turma = getTurma(idTurma);
         if (pes instanceof Aluno) {
-            turma.getAlunos().remove((Aluno)pes);
-        } else if (turma.getProfessor().getCpf().equals(pes.getCpf())){
-                turma.setProfessor(null);
+            turma.getAlunos().remove((Aluno) pes);
+        } else if (turma.getProfessor().getCpf().equals(pes.getCpf())) {
+            turma.setProfessor(null);
         } else {
             throw new Exception("Pessoa Não Encontrada");
         }
     }
-    
+
     public String listProfessores() {
         StringBuilder str = new StringBuilder();
-        boolean find = false;
-        str.append("Professores: " + "\n");
+        int qtd = 0;
         for (Pessoa pes : getPessoas()) {
             if (pes instanceof Professor) {
-                find = true;
-                str.append(((Professor)pes).toString() + "\n");
-                str.append("======================" + "\n");
+                qtd++;
+                str.append(((Professor) pes).toString() + "\n");
             }
         }
-        if (!find) {
-            return "";
-        }
-        return str.toString();
+        return "0" + String.valueOf(qtd)+ "\n" + str.toString();
     }
-    
+
     public String listAlunos() {
         StringBuilder str = new StringBuilder();
-        boolean find = false;
-        str.append("Alunos: " + "\n");
+        int qtd = 0;
         for (Pessoa pes : getPessoas()) {
             if (pes instanceof Aluno) {
-                find = true;
-                str.append(((Aluno)pes).toString() + "\n");
-                str.append("======================" + "\n");
+                qtd++;
+                str.append(((Aluno) pes).toString() + "\n");
             }
         }
-        if (!find) {
-            str = null;
-        }
-        return str.toString();
+        return "0" + String.valueOf(qtd)+ "\n" + str.toString();
     }
-    
+
     public String listTurmas() {
         StringBuilder str = new StringBuilder();
-       if (getTurmas().size() > 0) {
-            str.append("Turmas: " + "\n");
-        }
+        int qtd = getTurmas().size();
         for (Turma turma : getTurmas()) {
             if (turma == null) {
+                qtd--;
                 continue;
             }
             str.append(turma.toString() + "\n");
-            str.append("======================" + "\n");
         }
-        return str.toString();
+        return "0" + String.valueOf(qtd)+ "\n" + str.toString();
     }
 }

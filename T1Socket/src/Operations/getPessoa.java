@@ -15,7 +15,7 @@ public class GetPessoa extends Operation {
         try {
             Pessoa pes = (Pessoa) getModelo();
             
-            setSucessMsg(new String[]{pes.getVirtualInfo().toString()});
+            setSucessMsg(new String[]{pes.toString()});
         } catch (Exception ex) {
             setSucess(false);
         }
@@ -41,7 +41,7 @@ public class GetPessoa extends Operation {
     @Override
     public String[] getErrorMsg() {
         if (errorMsg == null) {
-            errorMsg = new String[]{"Não foi Econtrar a Pessoa do CPF " + getArgs()[2]};
+            errorMsg = new String[]{"Pessoa não encontrada"};
         }
         return errorMsg;
     }

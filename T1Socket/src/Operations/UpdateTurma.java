@@ -37,13 +37,13 @@ public class UpdateTurma extends Operation {
 
     @Override
     public String[] getSucessMsg() {
-        return new String[]{"Turma alterada com sucesso!"};
+        return new String[]{"Turma atualizada com sucesso!"};
     }
 
     @Override
     public String[] getErrorMsg() {
         if (errorMsg == null) {
-            errorMsg = new String[]{"Não foi Possivel alterar a Turma."};
+            errorMsg = new String[]{"Não foi Possivel atualizar a Turma."};
         }
         return errorMsg;
     }

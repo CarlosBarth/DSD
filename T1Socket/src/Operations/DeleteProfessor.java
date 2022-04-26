@@ -37,7 +37,7 @@ public class DeleteProfessor extends Operation {
     @Override
     public String[] getSucessMsg() {
         if (sucessMsg == null) {
-            return new String[]{"Professor removido da turma com sucesso!"};
+            return new String[]{"Professor removido com sucesso!"};
         }
         return sucessMsg;
     }
@@ -45,7 +45,7 @@ public class DeleteProfessor extends Operation {
     @Override
     public String[] getErrorMsg() {
         if (errorMsg == null) {
-            errorMsg = new String[]{"Não foi possivel Econtrar o Professor"};
+            errorMsg = new String[]{"Professor não encontrado"};
         }
         return errorMsg;
     }

@@ -32,7 +32,7 @@ public class Professor extends Pessoa {
 
     @Override
     public String toString() {
-        return super.toString() + "    Nível de Graduação: " + getNivelGraduacao() + "\n";
+        return super.toString() + ";" + getNivelGraduacao() + "\n";
     }
     
     public static Professor getNewInstance(String[] args) {

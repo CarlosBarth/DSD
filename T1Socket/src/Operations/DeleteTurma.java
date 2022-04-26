@@ -43,7 +43,7 @@ public class DeleteTurma extends Operation {
     @Override
     public String[] getErrorMsg() {
         if (errorMsg == null) {
-            errorMsg = new String[]{"Não foi Econtrar a Turma id: " + getArgs()[2]};
+            errorMsg = new String[]{"Turma não encontrada"};
         }
         return errorMsg;
     }
