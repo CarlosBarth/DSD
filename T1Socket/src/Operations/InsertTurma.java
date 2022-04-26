@@ -22,10 +22,9 @@ public class InsertTurma extends Operation {
     @Override
     public Model getInstanceModelo(String[] args) {
         try {
-            Dao.getInstance().newInstanceTurma(args[2]);
+            return Dao.getInstance().newInstanceTurma(args[2]);
         } catch (Exception ex) {
             setSucess(false);
-            setErrorMsg(new String[]{ex.getMessage()});
         }
         return null;
     }

@@ -38,8 +38,9 @@ public class ControllerServidor {
     private static void writeOutPut(String[] str) throws Exception {
         for (int i = 0; i < str.length; i++) {
             output.write(str[i].getBytes());
-            System.out.println(str[i].getBytes());
         }
+        System.out.println("Entrada: " + input.readUTF()+ "\n");
+        System.out.println("Retorno:" + str);
         
     }
 
