@@ -27,9 +27,9 @@ public class InsertAluno extends Operation {
     public Model getInstanceModelo(String[] args) {
         try {
             if (args.length == 4) {
-                    Aluno aluno = (Aluno)Dao.getInstance().getPessoa(args[2]);
-                    Dao.getInstance().getTurma(Integer.parseInt(args[3])).addAluno(aluno);
-
+                Aluno aluno = (Aluno)Dao.getInstance().getPessoa(args[2]);
+                Dao.getInstance().getTurma(Integer.parseInt(getArgs()[3])).addAluno(aluno);
+                return aluno;
             } else {
                 return Aluno.getNewInstance(args);
             }

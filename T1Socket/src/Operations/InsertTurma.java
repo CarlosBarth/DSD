@@ -13,7 +13,7 @@ public class InsertTurma extends Operation {
     @Override
     public void execute() {
         try {
-            Dao.getInstance().getTurmas().add((Turma)getModelo());
+            getInstanceModelo(getArgs());
         } catch (Exception ex) {
             setSucess(false);
         }

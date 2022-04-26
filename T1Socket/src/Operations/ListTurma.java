@@ -12,13 +12,12 @@ public class ListTurma extends Operation {
     @Override
     public void execute() {
         try {
-            String retorno = Dao.getInstance().listTurmas();
-            if (retorno == "") {
+            String[] retorno = new String[] {Dao.getInstance().listTurmas()};
+            if (retorno.toString() == "") {
                 setSucess(false);
                 return;
             }
-            String[] str = new String[] {Dao.getInstance().listTurmas()};
-            setSucessMsg(str);
+            setSucessMsg(retorno);
         } catch (Exception ex) {
             setSucess(false);
         }

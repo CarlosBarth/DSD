@@ -22,6 +22,7 @@ public class Turma implements Model{
     private Professor Professor;
 
     public Turma(String descricaoEntrada) {
+        alunos = new ArrayList<Aluno>();
         descricao = descricaoEntrada;
         ano = Calendar.getInstance().get(Calendar.YEAR);
     }
@@ -104,13 +105,15 @@ public class Turma implements Model{
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(getIdTurma() + ";" + getDescricao() + ";" +  getQtdAlunos() + ";" + getAno() +"\n");
-        str.append("Professor: "+"\n");
-        str.append(getProfessor().toString() + "\n");
+        if (getProfessor() != null) {
+            str.append("Professor: "+"\n");
+            str.append(getProfessor().toString() + "\n");
+        }
         if (alunos.size() > 0 ) {
             str.append("Alunos: "+"\n");
         }
         
-        for (Aluno aluno : alunos) {
+        for (Aluno aluno : getAlunos()) {
             str.append(aluno.toString());
         }
         return str.toString();

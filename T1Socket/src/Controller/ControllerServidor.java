@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Dao;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -39,8 +40,7 @@ public class ControllerServidor {
         for (int i = 0; i < str.length; i++) {
             output.write(str[i].getBytes());
         }
-        System.out.println("Entrada: " + input.readUTF()+ "\n");
-        System.out.println("Retorno:" + str);
+        System.out.println(str[0]);
         
     }
 
